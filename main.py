@@ -82,12 +82,13 @@ def play(game, x_player, o_player, print_game=True):
                 return letter
 
             if letter == 'X':
+                
                 letter = 'O'
             else:
                 letter = 'X'
         else:
             print('Invalid move. Try again.')
-            
+
     if print_game:
         print('It\'s a tie!')
 
