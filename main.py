@@ -1,35 +1,35 @@
 from player import HumanPlayer, RandomCpuPlayer
 
 class TicTacToe():
-    def __init__(self):
-        self.board = [' ' for _ in range(9)]
-        self.current_winner = None
+  def __init__(self):
+    self.board = [' ' for _ in range(9)]
+    self.current_winner = None
 
-    def print_board(self):
+  def print_board(self):
         for row in [self.board[i*3:(i+1)*3] for i in range(3)]:
             print('| ' + ' | '.join(row) + ' |')
-
-    @staticmethod
-    def print_board_nums():
+    
+  @staticmethod
+  def print_board_nums():
         # 0 | 1 | 2
         number_board = [[str(i) for i in range(j*3, (j+1)*3)] for j in range(3)]
         for row in number_board:
             print('| ' + ' | '.join(row) + ' |')
 
-    def available_moves(self):
+  def available_moves(self):
         moves = []
         for (i, spot) in enumerate(self.board):
             if spot == ' ':
                 moves.append(i)
         return moves
 
-    def empty_squares(self):
+  def empty_squares(self):
         return ' ' in self.board
 
-    def num_empty_squares(self):
+  def num_empty_squares(self):
         return self.board.count(' ')
 
-    def make_move(self, square, letter):
+  def make_move(self, square, letter):
         if self.board[square] == ' ':
             self.board[square] = letter
             if self.winner(square, letter):
@@ -37,7 +37,7 @@ class TicTacToe():
             return True
         return False
 
-    def winner(self, square, letter):
+  def winner(self, square, letter):
         row_ind = square // 3
         row = self.board[row_ind*3: (row_ind + 1) * 3]
         if all([spot == letter for spot in row]):
@@ -82,7 +82,7 @@ def play(game, x_player, o_player, print_game=True):
                 return letter
 
             if letter == 'X':
-                
+
                 letter = 'O'
             else:
                 letter = 'X'
@@ -95,7 +95,18 @@ def play(game, x_player, o_player, print_game=True):
 
 if __name__ == '__main__':
     x_player = HumanPlayer('X')
-    o_player = RandomCpuPlayer('O')
+    #o_player = RandomCpuPlayer('O')
+    o_player = Ai_player('O')
     t = TicTacToe()
     play(t, x_player, o_player, print_game=True)
-    # done
+
+while True:
+  answer = input('Do you want to play again? (Y/N)')
+  if answer.lower() == 'y' or answer.lower() == 'yes':
+    print('-----------------------------------')
+    t = TicTacToe()
+    play(t, x_player, o_player, print_game=True)
+  else:
+    print("Game over!")
+    break
+# done
